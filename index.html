@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luna-Drama | AI Drama</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #10091c;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      padding: 22px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #190d29;
+      border-bottom: 1px solid #38204d;
+    }
+    .logo { color: #c084fc; font-size: 26px; font-weight: bold; }
+    header a { color: white; text-decoration: none; }
+    .hero {
+      padding: 70px 7%;
+      background: linear-gradient(120deg, #30104c, #10091c 75%);
+    }
+    .hero h1 { font-size: clamp(36px, 6vw, 62px); margin: 12px 0; }
+    .hero p { color: #d4c5e4; font-size: 18px; line-height: 1.6; }
+    .button {
+      display: inline-block;
+      background: #9333ea;
+      color: white;
+      padding: 14px 23px;
+      border-radius: 10px;
+      border: none;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    main { padding: 25px 7% 60px; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #21142f;
+      border: 1px solid #39254c;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .cover {
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 18px;
+      font-size: 25px;
+      font-weight: bold;
+      background: linear-gradient(145deg, #7828a8, #20102f);
+    }
+    .cover.two { background: linear-gradient(145deg, #a13d73, #25102d); }
+    .cover.three { background: linear-gradient(145deg, #354ca4, #171126); }
+    .cover.four { background: linear-gradient(145deg, #a56b35, #291126); }
+    .info { padding: 16px; }
+    .info p { color: #cbbbd9; line-height: 1.5; }
+    .info button { width: 100%; }
+    footer {
+      text-align: center;
+      color: #a99bb9;
+      padding: 25px;
+      border-top: 1px solid #38204d;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">☾ Luna-Drama</div>
+    <a href="#serie">Scopri le serie</a>
+  </header>
+
+  <section class="hero">
+    <p>IL TUO MONDO DI STORIE AI</p>
+    <h1>Emozioni senza<br>confini.</h1>
+    <p>Amore, segreti, passione e colpi di scena.<br>
+    Entra in un universo di drammi indimenticabili.</p>
+    <a class="button" href="#serie">Esplora le serie ✨</a>
+  </section>
+
+  <main id="serie">
+    <h2>🌙 Scopri i nostri Drama</h2>
+    <p>Ogni storia nasconde un segreto.</p>
+
+    <div class="cards">
+      <article class="card">
+        <div class="cover">La Luna<br>e il Lupo</div>
+        <div class="info">
+          <h3>La Luna e il Lupo</h3>
+          <p>Un amore proibito. Un destino misterioso.</p>
+          <button class="button" onclick="apri('La Luna e il Lupo')">Scopri la storia</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover two">Il Segreto<br>del Cuore</div>
+        <div class="info">
+          <h3>Il Segreto del Cuore</h3>
+          <p>Una verità nascosta cambierà tutto.</p>
+          <button class="button" onclick="apri('Il Segreto del Cuore')">Scopri la storia</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover three">L'Erede<br>Oscuro</div>
+        <div class="info">
+          <h3>L'Erede Oscuro</h3>
+          <p>Potere, tradimenti e una doppia vita.</p>
+          <button class="button" onclick="apri('L’Erede Oscuro')">Scopri la storia</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover four">Amore<br>Milionario</div>
+        <div class="info">
+          <h3>Amore Milionario</h3>
+          <p>Due mondi diversi. Una passione impossibile.</p>
+          <button class="button" onclick="apri('Amore Milionario')">Scopri la storia</button>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer>© 2026 Luna-Drama · Il tuo universo di AI Drama 💜</footer>
+
+  <script>
+    function apri(titolo) {
+      alert(titolo + "\n\nQuesta serie arriverà presto su Luna-Drama!");
+    }
+  </script>
+</body>
+</html>
