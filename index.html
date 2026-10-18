@@ -72,7 +72,19 @@ footer{text-align:center;padding:25px;color:#cdbbd6}
 <select id="voceM"><option value="">Migliore voce italiana disponibile</option></select>
 </div>
 <p id="statoVoce" class="muted">Carico le voci disponibili sul computer…</p>
-<p class="muted">La qualità dipende dalle voci installate in Windows e nel browser. Questa versione non genera voci AI premium né video animati.</p>
+<p class="muted">Questa versione sceglie voci italiane disponibili e prova a distinguere i personaggi. La qualità dipende dalle voci installate in Windows/browser: non è una voce AI premium e non crea video animati.</p>
+</section>
+<section id="videoSection">
+<h2>🎥 Crea il video della tua storia</h2>
+<p>Seleziona prima una storia qui sopra, poi prepara una descrizione pronta per un generatore video AI.</p>
+<div class="controls">
+<button id="preparaVideo">✨ Prepara scena video</button>
+<button id="copiaPrompt" class="secondary">📋 Copia descrizione</button>
+<a id="apriGeneratore" href="https://free.ai/video/image-to-video/?lang=it" target="_blank" rel="noopener" style="display:inline-block;background:#c43be5;color:white;text-decoration:none;padding:11px 16px;border-radius:24px;font-weight:bold;margin:5px">🎬 Apri generatore video gratuito</a>
+</div>
+<textarea id="videoPrompt" rows="5" style="width:100%;margin-top:12px;padding:12px;border-radius:12px;font:inherit" placeholder="Qui comparirà la descrizione della scena da animare..."></textarea>
+<p id="statoVideo" class="muted">Il generatore esterno crea clip brevi da un'immagine. Dovrai caricare la copertina, copiare la descrizione qui sopra e incollarla nel generatore. Non serve modificare di nuovo il codice per ogni episodio.</p>
+<p class="muted">Nota: questa funzione prepara la scena, ma non può creare o pubblicare video in automatico da GitHub Pages. La disponibilità gratuita e i limiti dipendono dal servizio esterno.</p>
 </section>
 <h2>🎬 Le nostre storie</h2>
 <div class="filters">
@@ -111,347 +123,289 @@ footer{text-align:center;padding:25px;color:#cdbbd6}
 <footer>🌙 Luna-Drama — Le storie iniziano qui.</footer>
 <script>
 
-const storie = [
-  {
-    titolo: "Il segreto del cuore",
-    genere: "Romantico",
-    testo: "Giulia non aveva mai creduto nell'amore a prima vista. Poi incontrò Marco, sotto la pioggia, davanti alla vecchia libreria.\n\nGIULIA: «Perché mi guardi così?»\nMARCO: «Perché ho la sensazione di conoscerti da sempre.»\nGIULIA: «È impossibile. Non ci siamo mai visti.»\nMARCO: «Forse è proprio questo il mistero.»\n\nQuella sera Giulia trovò una lettera nella tasca del cappotto. C'era scritto il suo nome, con una calligrafia che riconobbe immediatamente."
-  },
-  {
-    titolo: "Un destino speciale",
-    genere: "Fantasy",
-    testo: "Luna scoprì di poter sentire i pensieri degli altri soltanto durante la notte. Una voce sconosciuta la chiamava ogni volta che guardava il cielo.\n\nLUNA: «Chi sei? Perché mi segui?»\nALEX: «Non ti seguo. Ti sto proteggendo.»\nLUNA: «Da cosa?»\nALEX: «Da quello che sta per svegliarsi.»\n\nUna luce blu illuminò la stanza. Sul palmo della mano di Luna apparve un simbolo antico."
-  },
-  {
-    titolo: "Amanti sotto la luna piena",
-    genere: "Romantico",
-    testo: "Sofia e Daniel si incontravano ogni notte nel giardino proibito del castello. Sapevano che il loro amore avrebbe potuto distruggere le loro famiglie.\n\nSOFIA: «Se ci scoprono, sarà la fine.»\nDANIEL: «Preferisco perdere tutto che perdere te.»\nSOFIA: «E se il destino fosse contro di noi?»\nDANIEL: «Allora cambieremo il destino.»\n\nDietro una colonna, qualcuno aveva ascoltato ogni parola."
-  },
-  {
-    titolo: "Tra amore e destino",
-    genere: "Fantasy",
-    testo: "Elena trovò un anello che mostrava il futuro. Ogni volta che lo indossava, vedeva lo stesso ragazzo e una scelta impossibile.\n\nELENA: «Ti ho visto nei miei sogni.»\nMATTEO: «Anch'io. Ma nei miei sogni tu scompari.»\nELENA: «Possiamo impedirlo?»\nMATTEO: «Solo se smettiamo di avere paura.»\n\nL'anello diventò improvvisamente nero. Il futuro era appena cambiato."
-  },
-  {
-    titolo: "Il mondo nascosto",
-    genere: "Mistero",
-    testo: "Dietro lo specchio della soffitta, Alice trovò una stanza che non compariva sulla pianta della casa. Sul tavolo c'erano fotografie della sua famiglia, scattate prima che lei nascesse.\n\nALICE: «Chi è questa donna?»\nLEONARDO: «Non dovresti essere qui.»\nALICE: «Tu sai cosa nasconde questa casa!»\nLEONARDO: «Sì. E quando lo scoprirai, niente sarà più come prima.»\n\nLo specchio si richiuse da solo."
-  },
-  {
-    titolo: "La verità segreta",
-    genere: "Mistero",
-    testo: "Una lettera anonima arrivò a casa di Martina. Conteneva una sola frase: non fidarti della persona che ami.\n\nMARTINA: «Hai scritto tu questa lettera?»\nLUCA: «Certo che no. Perché dovrei?»\nMARTINA: «Perché qualcuno conosce tutti i nostri segreti.»\nLUCA: «Martina, devi credermi.»\n\nIl telefono di Luca si illuminò. Sullo schermo comparve un messaggio: sa tutto."
-  }
+const titoli={
+  Romantico:["Il bacio proibito","La promessa della luna","Un amore impossibile","Quando tornerai","La lettera mai spedita"],
+  Fantasy:["La profezia della luna","Il principe sconosciuto","Il regno dimenticato","La magia del destino"],
+  Mistero:["La verità nascosta","La casa senza ombre","La lettera anonima","Il mistero di mezzanotte"]
+};
+const nf=["Luna","Sofia","Mia","Elena","Aurora","Nina","Viola","Isabella"];
+const nm=["Alex","Luca","Dante","Noah","Leon","Matteo","Adrian"];
+const luoghi={
+  Romantico:["durante una notte di pioggia","alla festa più importante della città","nel giardino di una villa abbandonata"],
+  Fantasy:["in un castello avvolto dalla nebbia","sotto una luna rossa","ai confini di un regno dimenticato"],
+  Mistero:["in una casa chiusa da vent'anni","davanti a una lettera senza firma","in una biblioteca nascosta"]
+};
+const segreti={
+  Romantico:["scopre che la persona amata nasconde un segreto del passato","riceve un messaggio da qualcuno che credeva perduto"],
+  Fantasy:["scopre di possedere un potere misterioso","capisce che le loro famiglie sono legate da un'antica profezia"],
+  Mistero:["trova una prova che cambia tutto","scopre che una persona fidata le ha mentito per anni"]
+};
+const battute=[
+  ["«Perché non mi hai detto la verità?»","«Avevo paura di perderti.»","«Adesso rischi di perdermi proprio per questo.»"],
+  ["«Non avrei mai dovuto fidarmi di te.»","«Lasciami spiegare.»","«Hai una sola possibilità. Parla.»"],
+  ["«Che cosa succederà adesso?»","«Non lo so, ma non ti lascerò sola.»","«Promettimi che non mi nasconderai più niente.»"]
 ];
+const epNomi=["Il primo incontro","Una verità nascosta","La promessa spezzata","Il segreto viene a galla","La scelta impossibile","La notte della verità"];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const KEY="lunaDramaSerieV2";
+let current=null;
 
-const nuoviInizi = [
-  "Quella notte, una telefonata cambiò ogni cosa.",
-  "Nessuno immaginava cosa sarebbe successo il giorno dopo.",
-  "Un segreto del passato tornò a galla.",
-  "Una porta si aprì nel momento meno opportuno.",
-  "Una promessa dimenticata tornò a chiedere il conto."
-];
-
-const nuoviFinali = [
-  "Ma dietro la porta qualcuno stava ascoltando.",
-  "In quel momento arrivò un messaggio anonimo.",
-  "La verità era molto più pericolosa di quanto pensassero.",
-  "Poi si spensero tutte le luci.",
-  "E una voce sussurrò: «È troppo tardi.»"
-];
-
-const drama = document.getElementById("drama");
-const stato = document.getElementById("stato");
-const voceF = document.getElementById("voceF");
-const voceM = document.getElementById("voceM");
-const statoVoce = document.getElementById("statoVoce");
-
-let storiaAttuale = null;
-let numeroEpisodio = 1;
-let vociDisponibili = [];
-
-function casuale(lista) {
-  return lista[Math.floor(Math.random() * lista.length)];
-}
-
-function mostraStoria(storia) {
-  storiaAttuale = storia;
-  drama.textContent =
-    storia.titolo + "\n" +
-    "Genere: " + storia.genere + "\n" +
-    "Episodio " + numeroEpisodio + "\n\n" +
-    storia.testo;
-}
-
-function creaDrama() {
-  const genereScelto = document.getElementById("genere").value;
-  let possibili = storie.filter(s =>
-    genereScelto === "Romantico"
-      ? s.genere === "Romantico"
-      : genereScelto === "Fantasy"
-      ? s.genere === "Fantasy"
-      : s.genere === "Mistero"
-  );
-
-  const base = casuale(possibili);
-  numeroEpisodio = 1;
-
-  const nuova = {
-    titolo: base.titolo,
-    genere: base.genere,
-    testo: base.testo + "\n\n" +
-      casuale(nuoviInizi) + "\n\n" +
-      casuale(nuoviFinali)
+function generate(g,titolo,numero,base){
+  let a=base?.a||pick(nf),b=base?.b||pick(nm);
+  return {
+    g,
+    titolo:titolo||pick(titoli[g]),
+    numero,
+    a,b,
+    trama:`${a} incontra ${b} ${pick(luoghi[g])}. ${a} ${pick(segreti[g])}. Un nuovo indizio fa capire che qualcuno vuole cambiare il loro destino.`,
+    dialoghi:[
+      `${a}: ${pick(battute)[0]}`,
+      `${b}: ${pick(battute)[1]}`,
+      `${a}: ${pick(battute)[2]}`
+    ],
+    data:new Date().toLocaleDateString("it-IT")
   };
-
-  mostraStoria(nuova);
-  stato.textContent =
-    "Nuova storia creata. Questa versione usa modelli locali, non un'intelligenza artificiale online.";
-  salvaStoria();
 }
 
-function salvaStoria() {
-  try {
-    localStorage.setItem("lunaDramaStoria", JSON.stringify(storiaAttuale));
-    localStorage.setItem("lunaDramaEpisodio", String(numeroEpisodio));
-  } catch (e) {}
+function save(s){
+  localStorage.setItem(KEY,JSON.stringify(s));
 }
 
-function continuaSerie() {
-  try {
-    const salvata = localStorage.getItem("lunaDramaStoria");
-    const episodio = Number(localStorage.getItem("lunaDramaEpisodio") || "1");
-
-    if (!salvata) {
-      stato.textContent = "Prima crea una storia da continuare.";
-      return;
-    }
-
-    const precedente = JSON.parse(salvata);
-    numeroEpisodio = episodio + 1;
-
-    const continuazione = {
-      titolo: precedente.titolo,
-      genere: precedente.genere,
-      testo: precedente.testo + "\n\nEPISODIO " + numeroEpisodio +
-        "\n\n" + casuale(nuoviInizi) + "\n\n" +
-        "PERSONAGGIO: «Non posso più nasconderti la verità.»\n\n" +
-        casuale(nuoviFinali)
-    };
-
-    mostraStoria(continuazione);
-    salvaStoria();
-    stato.textContent = "Episodio " + numeroEpisodio + " creato e salvato su questo dispositivo.";
-  } catch (e) {
-    stato.textContent = "Non riesco a recuperare la storia salvata.";
-  }
+function load(){
+  try{return JSON.parse(localStorage.getItem(KEY)||"null")}
+  catch(e){return null}
 }
 
-function episodioDelGiorno() {
-  const oggi = new Date().toISOString().slice(0, 10);
-  const chiave = "lunaDramaGiorno_" + oggi;
+function show(s){
+  current=s;
+  const box=document.getElementById("drama");
+  box.replaceChildren();
 
-  try {
-    let episodio = localStorage.getItem(chiave);
+  const badge=document.createElement("span");
+  badge.className="badge";
+  badge.textContent=s.g+" · Episodio "+s.numero;
 
-    if (!episodio) {
-      const base = casuale(storie);
-      episodio = JSON.stringify({
-        titolo: base.titolo,
-        genere: base.genere,
-        testo: base.testo + "\n\nEPISODIO DEL GIORNO\n\n" +
-          casuale(nuoviInizi) + "\n\n" + casuale(nuoviFinali)
-      });
-      localStorage.setItem(chiave, episodio);
-    }
+  const h=document.createElement("h3");
+  h.textContent="🌙 "+s.titolo;
 
-    numeroEpisodio = 1;
-    mostraStoria(JSON.parse(episodio));
-    stato.textContent = "Episodio del giorno salvato su questo dispositivo.";
-  } catch (e) {
-    creaDrama();
-  }
-}
+  const ep=document.createElement("h4");
+  ep.textContent="Episodio "+s.numero+": "+epNomi[(s.numero-1)%epNomi.length];
 
-document.getElementById("crea").addEventListener("click", creaDrama);
-document.getElementById("continua").addEventListener("click", continuaSerie);
-document.getElementById("oggi").addEventListener("click", episodioDelGiorno);
+  const p=document.createElement("p");
+  p.textContent=s.trama;
 
-document.querySelectorAll(".leggi").forEach(pulsante => {
-  pulsante.addEventListener("click", () => {
-    const s = storie[Number(pulsante.dataset.id)];
-    numeroEpisodio = 1;
-    mostraStoria(s);
-    salvaStoria();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  box.append(badge,h,ep,p);
+
+  s.dialoghi.forEach(t=>{
+    const q=document.createElement("p");
+    q.textContent=t;
+    box.appendChild(q);
   });
+
+  const end=document.createElement("p");
+  end.textContent="Continua... 💜";
+  box.appendChild(end);
+
+  document.getElementById("stato").textContent="Serie salvata · "+s.data;
+}
+
+function create(){
+  const s=generate(document.getElementById("genere").value,null,1);
+  save(s);
+  show(s);
+}
+
+function continueSeries(){
+  const old=load();
+  if(!old){
+    document.getElementById("stato").textContent="Prima crea un drama, poi continua la serie.";
+    return;
+  }
+  const s=generate(old.g,old.titolo,old.numero+1,old);
+  save(s);
+  show(s);
+}
+
+function daily(){
+  const key="lunaDramaDay-"+new Date().toISOString().slice(0,10);
+  let s;
+  try{s=JSON.parse(localStorage.getItem(key)||"null")}catch(e){}
+
+  if(!s){
+    const old=load();
+    s=old
+      ?generate(old.g,old.titolo,old.numero+1,old)
+      :generate(document.getElementById("genere").value,null,1);
+    localStorage.setItem(key,JSON.stringify(s));
+    save(s);
+  }
+  show(s);
+}
+
+const fixed=[
+  ["Il segreto del cuore","Romantico","Elena torna nella sua città e incontra Marco, il ragazzo che non ha mai dimenticato.",["Elena: «Perché sei sparito?»","Marco: «Volevo proteggerti, ma ho sbagliato.»","Elena: «Dimmi tutta la verità.»"]],
+  ["Un destino speciale","Fantasy","Sofia trova un medaglione capace di mostrare il futuro, ma una profezia minaccia di separarli.",["Sofia: «Ho visto qualcosa di terribile.»","Luca: «Possiamo cambiare il destino?»","Sofia: «Forse, insieme.»"]],
+  ["Amanti sotto la luna piena","Romantico","Una ragazza scopre che il ragazzo che ama nasconde un segreto soprannaturale.",["Lei: «Perché mi hai portata qui?»","Lui: «Solo sotto questa luna posso dirti la verità.»","Lei: «Quale verità?»","Lui: «Il mio destino è legato al tuo.»"]],
+  ["Tra amore e destino","Fantasy","Due rivali devono collaborare per salvare un regno e scoprono un sentimento inatteso.",["Lei: «Non mi fiderò mai di te.»","Lui: «Guardami e dimmi che non provi niente.»","Lei: «Non rendere tutto più difficile.»"]],
+  ["Il mondo nascosto","Mistero","Mia trova un passaggio verso una città che non compare su nessuna mappa.",["Mia: «Chi sei? Come conosci il mio nome?»","Sconosciuto: «La tua famiglia custodisce un segreto.»","Mia: «Quale segreto?»"]],
+  ["La verità segreta","Mistero","Una lettera anonima spinge Anna a indagare sul passato della sua famiglia.",["Anna: «Questa lettera parla di mia madre.»","Davide: «Qualcuno non vuole che tu sappia.»","Anna: «Continuerò a cercare.»"]]
+];
+
+document.getElementById("crea").onclick=create;
+document.getElementById("continua").onclick=continueSeries;
+document.getElementById("oggi").onclick=daily;
+
+document.querySelectorAll(".leggi").forEach(b=>{
+  b.onclick=()=>{
+    let x=fixed[+b.dataset.id];
+    show({
+      titolo:x[0],
+      g:x[1],
+      numero:1,
+      trama:x[2],
+      dialoghi:x[3],
+      data:new Date().toLocaleDateString("it-IT")
+    });
+  };
 });
 
-document.querySelectorAll("[data-filter]").forEach(pulsante => {
-  pulsante.addEventListener("click", () => {
-    const filtro = pulsante.dataset.filter;
-
-    document.querySelectorAll("[data-filter]").forEach(b =>
-      b.classList.toggle("active", b === pulsante)
-    );
-
-    document.querySelectorAll(".card").forEach(c => {
-      c.classList.toggle(
-        "hidden",
-        filtro !== "tutti" && c.dataset.category !== filtro
-      );
+document.querySelectorAll(".filters button").forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll(".filters button").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    document.querySelectorAll(".card").forEach(c=>{
+      c.classList.toggle("hidden",b.dataset.filter!=="tutti"&&c.dataset.category!==b.dataset.filter);
     });
-  });
+  };
 });
 
-function caricaVoci() {
-  if (!("speechSynthesis" in window)) {
-    statoVoce.textContent = "Il tuo browser non supporta la lettura vocale.";
+let vociDisponibili=[];
+
+function caricaVoci(){
+  if(!("speechSynthesis" in window)){
+    document.getElementById("statoVoce").textContent="Questo browser non supporta la lettura vocale.";
     return;
   }
 
-  function aggiorna() {
-    vociDisponibili = window.speechSynthesis.getVoices();
+  vociDisponibili=speechSynthesis.getVoices();
+  const italiane=vociDisponibili.filter(v=>/^it([_-]|$)/i.test(v.lang));
 
-    voceF.innerHTML = "";
-    voceM.innerHTML = "";
+  ["voceF","voceM"].forEach(id=>{
+    const sel=document.getElementById(id);
+    const chosen=sel.value;
+    sel.innerHTML='<option value="">Migliore voce italiana disponibile</option>';
 
-    const italiane = vociDisponibili.filter(v =>
-      v.lang && v.lang.toLowerCase().startsWith("it")
-    );
-
-    const opzioneF = document.createElement("option");
-    opzioneF.value = "";
-    opzioneF.textContent = "Migliore voce italiana disponibile";
-    voceF.appendChild(opzioneF);
-
-    const opzioneM = document.createElement("option");
-    opzioneM.value = "";
-    opzioneM.textContent = "Migliore voce italiana disponibile";
-    voceM.appendChild(opzioneM);
-
-    italiane.forEach((voce, i) => {
-      const f = document.createElement("option");
-      f.value = String(i);
-      f.textContent = voce.name + " (" + voce.lang + ")";
-      voceF.appendChild(f);
-
-      const m = document.createElement("option");
-      m.value = String(i);
-      m.textContent = voce.name + " (" + voce.lang + ")";
-      voceM.appendChild(m);
+    italiane.forEach(v=>{
+      const o=document.createElement("option");
+      o.value=v.name;
+      o.textContent=v.name+" ("+v.lang+")";
+      sel.appendChild(o);
     });
 
-    if (italiane.length === 0) {
-      statoVoce.textContent =
-        "Non trovo voci italiane. Installa una voce italiana nelle impostazioni di Windows e riapri il browser.";
-    } else {
-      statoVoce.textContent =
-        "Trovate " + italiane.length +
-        " voci italiane. Puoi scegliere una voce diversa per ogni personaggio. La qualità dipende dalle voci installate.";
-    }
-  }
+    if(chosen)sel.value=chosen;
+  });
 
-  aggiorna();
-  window.speechSynthesis.onvoiceschanged = aggiorna;
+  document.getElementById("statoVoce").textContent=italiane.length
+    ?"Trovate "+italiane.length+" voci italiane. Prova a selezionarle per sentire quale è più naturale."
+    :"Non trovo voci italiane dedicate. Le voci disponibili dipendono da Windows e dal browser.";
 }
 
-function trovaVoce(selettore, preferenza) {
-  const italiane = vociDisponibili.filter(v =>
-    v.lang && v.lang.toLowerCase().startsWith("it")
-  );
-
-  if (selettore.value !== "") {
-    const voceScelta = italiane[Number(selettore.value)];
-    if (voceScelta) return voceScelta;
-  }
-
-  const cercata = italiane.find(v =>
-    preferenza.some(parola => v.name.toLowerCase().includes(parola))
-  );
-
-  return cercata || italiane[0] || vociDisponibili[0] || null;
+if("speechSynthesis" in window){
+  caricaVoci();
+  speechSynthesis.onvoiceschanged=caricaVoci;
 }
 
-function fermaVoce() {
-  if ("speechSynthesis" in window) {
-    window.speechSynthesis.cancel();
-  }
+function scegliVoce(speaker){
+  const idFem=document.getElementById("voceF").value;
+  const idMas=document.getElementById("voceM").value;
+  const fem=/lei|elena|sofia|mia|anna|luna|ragazza|femminile|sconosciuta/i.test(speaker);
+  const custom=fem?idFem:idMas;
+
+  if(custom)return vociDisponibili.find(v=>v.name===custom)||null;
+
+  const it=vociDisponibili.filter(v=>/^it([_-]|$)/i.test(v.lang));
+  if(!it.length)return vociDisponibili.find(v=>/^it/i.test(v.lang))||null;
+
+  const patterns=fem
+    ?/(female|femmina|woman|donna|elsa|alice|lucia|bianca|silvia|chiara|paola)/i
+    :/(male|maschio|man|uomo|luca|giorgio|marco|diego|alessandro)/i;
+
+  return it.find(v=>patterns.test(v.name))||it[0];
 }
 
-function ascoltaDialoghi() {
-  if (!("speechSynthesis" in window)) {
-    statoVoce.textContent = "La lettura vocale non è supportata dal browser.";
+function parla(testo,voce,continua){
+  const u=new SpeechSynthesisUtterance(testo);
+  u.lang="it-IT";
+  if(voce)u.voice=voce;
+  u.rate=0.88;
+  u.pitch=1;
+  u.volume=1;
+  if(continua)u.onend=continua;
+  speechSynthesis.speak(u);
+}
+
+document.getElementById("ascolta").onclick=()=>{
+  if(!current)return alert("Prima apri una storia.");
+  if(!("speechSynthesis" in window))return alert("La voce non è disponibile in questo browser.");
+
+  speechSynthesis.cancel();
+
+  const righe=[current.titolo,current.trama,...current.dialoghi];
+  let i=0;
+
+  function prossimo(){
+    if(i>=righe.length)return;
+
+    const r=righe[i++];
+    const m=r.match(/^([^:]{1,30}):\s*(.*)$/);
+    const testo=m?m[2]:r;
+    const voce=m?scegliVoce(m[1]):scegliVoce("Elena");
+
+    parla(testo,voce,()=>setTimeout(prossimo,220));
+  }
+
+  prossimo();
+};
+
+document.getElementById("ferma").onclick=()=>{
+  if("speechSynthesis" in window)speechSynthesis.cancel();
+};
+
+document.getElementById("preparaVideo").addEventListener("click",()=>{
+  const s=current;
+
+  if(!s){
+    document.getElementById("statoVideo").textContent="Prima crea una storia o premi Leggi la storia su una delle sei copertine.";
     return;
   }
 
-  if (!storiaAttuale) {
-    statoVoce.textContent = "Crea o apri una storia prima di ascoltarla.";
+  const prompt=`Crea una scena cinematografica verticale 9:16 per una serie drama romantica/fantasy italiana. Titolo: ${s.titolo}. Genere: ${s.g}. Scena: ${s.trama} Atmosfera emozionante, luce cinematografica, movimenti naturali e delicati della telecamera, espressioni realistiche, nessun testo scritto sul video, nessun sottotitolo, nessuna deformazione del volto. Clip breve di circa 4-6 secondi.`;
+
+  document.getElementById("videoPrompt").value=prompt;
+  document.getElementById("statoVideo").textContent="Descrizione pronta. Apri il generatore, carica la copertina della storia e incolla questa descrizione.";
+  document.getElementById("videoSection").scrollIntoView({behavior:"smooth",block:"start"});
+});
+
+document.getElementById("copiaPrompt").addEventListener("click",async()=>{
+  const campo=document.getElementById("videoPrompt");
+
+  if(!campo.value){
+    document.getElementById("statoVideo").textContent="Prima premi Prepara scena video.";
     return;
   }
 
-  fermaVoce();
-
-  const testo = storiaAttuale.testo;
-  const righe = testo.split(/\n+/).map(r => r.trim()).filter(Boolean);
-
-  const voceFem = trovaVoce(voceF, ["elsa", "fem", "female", "aria"]);
-  const voceMasc = trovaVoce(voceM, ["masc", "male", "guy"]);
-
-  let indice = 0;
-
-  function parlaProssima() {
-    if (indice >= righe.length) {
-      statoVoce.textContent = "Lettura terminata.";
-      return;
-    }
-
-    const riga = righe[indice++];
-    let voce = voceFem;
-    let testoRiga = riga;
-
-    const corrispondenza = riga.match(/^([A-ZÀ-Ú][A-ZÀ-Ú ]{1,25}):\s*["«]?(.*)$/);
-
-    if (corrispondenza) {
-      const nome = corrispondenza[1].trim();
-      testoRiga = corrispondenza[2].replace(/[»"]\s*$/, "").trim();
-
-      const nomiMaschili = ["MARCO", "ALEX", "DANIEL", "MATTEO", "LEONARDO", "LUCA"];
-      voce = nomiMaschili.includes(nome) ? (voceMasc || voceFem) : voceFem;
-    }
-
-    if (!testoRiga) {
-      parlaProssima();
-      return;
-    }
-
-    const frase = new SpeechSynthesisUtterance(testoRiga);
-    frase.lang = voce ? voce.lang : "it-IT";
-
-    if (voce) frase.voice = voce;
-
-    frase.rate = 0.88;
-    frase.pitch = 1;
-
-    frase.onend = () => {
-      setTimeout(parlaProssima, 250);
-    };
-
-    frase.onerror = () => {
-      parlaProssima();
-    };
-
-    window.speechSynthesis.speak(frase);
+  try{
+    await navigator.clipboard.writeText(campo.value);
+    document.getElementById("statoVideo").textContent="Descrizione copiata. Incollala nel generatore video.";
+  }catch(e){
+    campo.focus();
+    campo.select();
+    document.getElementById("statoVideo").textContent="Se la copia automatica non funziona, seleziona il testo e premi CTRL+C.";
   }
+});
 
-  statoVoce.textContent = "Sto leggendo i dialoghi…";
-  parlaProssima();
-}
-
-document.getElementById("ascolta").addEventListener("click", ascoltaDialoghi);
-document.getElementById("ferma").addEventListener("click", fermaVoce);
-
-caricaVoci();
+const old=load();
+if(old)show(old);
 </script>
 </body>
 </html>
