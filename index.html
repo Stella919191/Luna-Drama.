@@ -7,298 +7,314 @@
 <title>Luna-Drama 🌙</title>
 <style>
 :root {
-  --bg: #100b19;
-  --panel: #21152e;
-  --pink: #f1a5dc;
-  --gold: #e9c889;
-  --text: #fff8ff;
+  --bg:#100b19; --panel:#21152e; --pink:#f1a5dc;
+  --purple:#c43be5; --gold:#e9c889; --text:#fff8ff;
 }
-* { box-sizing: border-box; }
+* { box-sizing:border-box; }
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  margin:0; font-family:Arial,sans-serif;
+  background:var(--bg); color:var(--text);
 }
 header {
-  text-align: center;
-  padding: 36px 16px;
-  background: linear-gradient(135deg,#27143c,#100b19);
-  border-bottom: 1px solid #4d315d;
+  text-align:center; padding:45px 18px;
+  background:linear-gradient(135deg,#251235,#702a78,#180f29);
+  border-bottom:3px solid var(--purple);
 }
-h1 { color: var(--pink); font-size: 38px; margin: 0 0 10px; }
-header p { color: #e4d5eb; }
-main { max-width: 1100px; margin: auto; padding: 22px; }
-section, .card {
-  background: var(--panel);
-  border: 1px solid #4b315c;
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 22px;
+header h1 { font-size:clamp(32px,6vw,55px); margin:0 0 12px; }
+header p { color:#f4dff6; }
+main { max-width:1150px; margin:auto; padding:24px 16px; }
+section {
+  background:var(--panel); padding:22px; border-radius:18px;
+  margin-bottom:25px; border:1px solid #573365;
 }
-h2 { color: var(--gold); }
-button, select {
-  padding: 12px 16px;
-  border: 0;
-  border-radius: 9px;
-  font-size: 15px;
-}
+h2 { color:var(--pink); }
 button {
-  cursor: pointer;
-  background: var(--pink);
-  color: #211027;
-  font-weight: bold;
+  background:var(--purple); color:white; border:0;
+  padding:12px 18px; border-radius:25px; cursor:pointer;
+  font-weight:bold; margin:5px;
 }
-button:hover { filter: brightness(1.1); }
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-  margin: 18px 0;
-}
-.filters button { background: #332342; color: white; }
-.filters button.active { background: var(--pink); color: #211027; }
+button:hover { filter:brightness(1.15); }
+.filters { text-align:center; margin:22px 0; }
+.filters button { background:transparent; border:1px solid var(--pink); }
+.filters button.active { background:var(--purple); }
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap: 18px;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
 }
-.card { padding: 0; overflow: hidden; }
+.card {
+  background:var(--panel); border:1px solid #50315f;
+  border-radius:16px; overflow:hidden;
+}
 .card img {
-  width: 100%;
-  height: 290px;
-  object-fit: cover;
-  display: block;
+  display:block; width:100%; height:290px; object-fit:cover;
 }
-.card-content { padding: 16px; }
-.category { color: var(--gold); font-size: 13px; }
-.card h3 { margin-bottom: 8px; }
-.card p, .muted { color: #d7c9df; line-height: 1.5; }
-.read-btn { margin: 0 16px 16px; }
-#result {
-  margin-top: 18px;
-  padding: 16px;
-  border-radius: 10px;
-  background: #120c1b;
-  line-height: 1.7;
-  white-space: normal;
+.card-content { padding:16px; }
+.category { color:var(--gold); font-size:13px; }
+.card h3 { color:var(--pink); }
+.story {
+  white-space:pre-line; line-height:1.8;
+  background:#160d20; border-radius:12px; padding:18px;
 }
-#result:empty { display: none; }
-#storyModal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #000b;
-  padding: 20px;
-  overflow: auto;
-  z-index: 10;
-}
-.modal-content {
-  max-width: 650px;
-  margin: 5vh auto;
-  padding: 24px;
-  background: var(--panel);
-  border: 1px solid var(--pink);
-  border-radius: 16px;
-  line-height: 1.7;
-}
-.close { float: right; }
-footer { text-align: center; padding: 24px; color: #bba9c7; }
-.hidden { display: none; }
+.story h3 { color:var(--gold); }
+#today { color:var(--gold); }
+.hidden { display:none !important; }
+footer { text-align:center; padding:25px; color:#cdbbd6; }
 </style>
 </head>
 <body>
 <header>
   <h1>🌙 Luna-Drama</h1>
-  <p>Amore, segreti, emozioni e colpi di scena.</p>
-  <p>Entra in un mondo dove ogni storia nasconde un mistero.</p>
+  <p>Amore, segreti, passioni e destini impossibili.</p>
+  <p>Ogni giorno una nuova storia da immaginare.</p>
 </header>
 
 <main>
   <section>
     <h2>✨ Crea il tuo Drama</h2>
-    <p class="muted">Inventa una nuova trama e un primo episodio originale.</p>
-    <label for="genre">Scegli il genere:</label>
-    <select id="genre">
-      <option value="romantico">Romantico</option>
-      <option value="fantasy">Fantasy</option>
-      <option value="mistero">Mistero</option>
-    </select>
-    <button id="createBtn">🌙 Crea un nuovo drama</button>
-    <div id="result" aria-live="polite"></div>
+    <p>Genera nuove trame, personaggi e dialoghi direttamente sul sito.</p>
+    <button onclick="creaDrama()">🌙 Crea un nuovo drama</button>
+    <button onclick="episodioOggi()">📖 Episodio del giorno</button>
+    <p id="today"></p>
+    <div id="drama" class="story">
+      Premi “Crea un nuovo drama” per iniziare una nuova storia.
+    </div>
   </section>
 
-  <h2>Le nostre storie</h2>
-  <nav class="filters" aria-label="Filtra le storie">
+  <h2>🎬 I nostri drama</h2>
+  <div class="filters">
     <button class="active" data-filter="tutti">Tutte</button>
     <button data-filter="romantico">Romantico</button>
     <button data-filter="fantasy">Fantasy</button>
     <button data-filter="mistero">Mistero</button>
-  </nav>
+  </div>
 
-  <div class="grid" id="series">
+  <div class="grid">
     <article class="card" data-category="romantico">
-      <img src="luna-coperina.jpeg" alt="Copertina Il segreto del cuore">
+      <img src="luna-coperina.jpeg" alt="Il segreto del cuore">
       <div class="card-content">
         <span class="category">Romantico</span>
         <h3>Il segreto del cuore</h3>
-        <p>Un incontro inaspettato cambia il destino di due cuori.</p>
+        <p>Un incontro inaspettato cambia due vite.</p>
+        <button onclick="mostraStoria(0)">Leggi la storia</button>
       </div>
-      <button class="read-btn" data-story="0">Leggi la storia</button>
     </article>
 
     <article class="card" data-category="fantasy">
-      <img src="luna%202.jpeg" alt="Copertina Un destino speciale">
+      <img src="luna%202.jpeg" alt="Un destino speciale">
       <div class="card-content">
         <span class="category">Fantasy</span>
         <h3>Un destino speciale</h3>
-        <p>Una ragazza scopre un potere che nessuno avrebbe dovuto conoscere.</p>
+        <p>Un potere nascosto risveglia un'antica profezia.</p>
+        <button onclick="mostraStoria(1)">Leggi la storia</button>
       </div>
-      <button class="read-btn" data-story="1">Leggi la storia</button>
     </article>
 
     <article class="card" data-category="romantico">
       <img src="Amanti%20sotto%20la%20luna%20piena.png" alt="Amanti sotto la luna piena">
       <div class="card-content">
-        <span class="category">Romantico</span>
+        <span class="category">Romantico e fantasy</span>
         <h3>Amanti sotto la luna piena</h3>
-        <p>Una promessa antica lega due anime e un segreto oscuro.</p>
+        <p>Una ragazza scopre che il ragazzo che ama nasconde un segreto soprannaturale.</p>
+        <button onclick="mostraStoria(2)">Leggi la storia</button>
       </div>
-      <button class="read-btn" data-story="2">Leggi la storia</button>
-    </article>
-
-    <article class="card" data-category="romantico">
-      <img src="luna3.jpeg" alt="Copertina Tra amore e destino">
-      <div class="card-content">
-        <span class="category">Romantico</span>
-        <h3>Tra amore e destino</h3>
-        <p>Due persone si ritrovano quando ormai tutto sembra perduto.</p>
-      </div>
-      <button class="read-btn" data-story="3">Leggi la storia</button>
     </article>
 
     <article class="card" data-category="fantasy">
-      <img src="luna4.jpeg" alt="Copertina Il mondo nascosto">
+      <img src="luna3.jpeg" alt="Tra amore e destino">
       <div class="card-content">
         <span class="category">Fantasy</span>
-        <h3>Il mondo nascosto</h3>
-        <p>Dietro una porta dimenticata esiste un altro mondo.</p>
+        <h3>Tra amore e destino</h3>
+        <p>Due anime legate da una promessa dimenticata.</p>
+        <button onclick="mostraStoria(3)">Leggi la storia</button>
       </div>
-      <button class="read-btn" data-story="4">Leggi la storia</button>
     </article>
 
     <article class="card" data-category="mistero">
-      <img src="luna5.jpeg" alt="Copertina La verità segreta">
+      <img src="luna4.jpeg" alt="Il mondo nascosto">
+      <div class="card-content">
+        <span class="category">Mistero</span>
+        <h3>Il mondo nascosto</h3>
+        <p>Una porta segreta conduce a una verità pericolosa.</p>
+        <button onclick="mostraStoria(4)">Leggi la storia</button>
+      </div>
+    </article>
+
+    <article class="card" data-category="mistero">
+      <img src="luna5.jpeg" alt="La verità segreta">
       <div class="card-content">
         <span class="category">Mistero</span>
         <h3>La verità segreta</h3>
-        <p>Una lettera rivela una verità nascosta per molti anni.</p>
+        <p>Una lettera anonima cambia tutto.</p>
+        <button onclick="mostraStoria(5)">Leggi la storia</button>
       </div>
-      <button class="read-btn" data-story="5">Leggi la storia</button>
     </article>
   </div>
 </main>
 
-<div id="storyModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div class="modal-content">
-    <button class="close" id="closeModal">Chiudi ✕</button>
-    <h2 id="modalTitle"></h2>
-    <div id="modalText"></div>
-  </div>
-</div>
-
-<footer>🌙 Luna-Drama · Storie da immaginare, emozioni da vivere.</footer>
+<footer>🌙 Luna-Drama — Le storie iniziano qui.</footer>
 
 <script>
-const stories = [
+const storie = [
   {
-    title: "Il segreto del cuore",
-    text: "Quando Sofia incontra Leonardo, sente di conoscerlo da sempre. Ma lui nasconde una lettera che potrebbe cambiare tutto.<br><br><b>Episodio 1 — L'incontro</b><br>Lei: «Perché mi sembra di averti già visto?»<br>Lui: «Forse perché il destino ci ha già incontrati.»<br><br>Quella notte, Sofia trova una lettera con il proprio nome."
+    titolo:"Il segreto del cuore",
+    trama:"Elena torna nella sua città e incontra Marco, il ragazzo che non ha mai dimenticato. Una lettera rivela che il loro addio nascondeva una verità dolorosa.",
+    dialogo:[
+      "Elena: «Perché sei sparito senza dirmi niente?»",
+      "Marco: «Volevo proteggerti, ma ho commesso l'errore più grande della mia vita.»",
+      "Elena: «Allora dimmi tutta la verità.»"
+    ]
   },
   {
-    title: "Un destino speciale",
-    text: "Mira scopre un simbolo luminoso sul polso. Un antico custode le rivela che il suo potere può salvare due mondi.<br><br><b>Episodio 1 — Il simbolo</b><br>Lei: «Che cosa mi sta succedendo?»<br>Lui: «La magia ti ha finalmente trovata.»<br><br>Una porta si apre nel muro del castello."
+    titolo:"Un destino speciale",
+    trama:"Sofia scopre un medaglione capace di mostrare il futuro. Ogni visione la avvicina a Luca, ma una profezia minaccia di separarli.",
+    dialogo:[
+      "Sofia: «Ho visto qualcosa che non dovrebbe accadere.»",
+      "Luca: «Non possiamo cambiare il destino?»",
+      "Sofia: «Forse. Ma dobbiamo farlo insieme.»"
+    ]
   },
   {
-    title: "Amanti sotto la luna piena",
-    text: "Elena incontra Adrian tra le rovine di un castello. Ogni luna piena li avvicina, ma un'antica maledizione minaccia il loro amore.<br><br><b>Episodio 1 — La promessa</b><br>Lei: «Perché mi hai portata qui?»<br>Lui: «Perché solo sotto questa luna posso dirti la verità.»<br>Lei: «Quale verità?»<br>Lui: «Che il mio destino è legato al tuo.»<br><br>Un ululato rompe il silenzio."
+    titolo:"Amanti sotto la luna piena",
+    trama:"Una ragazza scopre che il ragazzo che ama nasconde un segreto soprannaturale. Quando la luna diventa rossa, il loro amore mette in pericolo due mondi.",
+    dialogo:[
+      "Lei: «Perché mi hai portata qui?»",
+      "Lui: «Perché solo sotto questa luna posso dirti la verità.»",
+      "Lei: «Quale verità?»",
+      "Lui: «Che il mio destino è legato al tuo.»"
+    ]
   },
   {
-    title: "Tra amore e destino",
-    text: "Dopo anni di silenzio, Giulia riceve un messaggio da Marco, il ragazzo che non ha mai dimenticato.<br><br><b>Episodio 1 — Il messaggio</b><br>Lei: «Perché proprio adesso?»<br>Lui: «Perché non ho mai smesso di cercarti.»<br><br>Ma qualcuno sta leggendo i loro messaggi."
+    titolo:"Tra amore e destino",
+    trama:"Due rivali si ritrovano costretti a collaborare per salvare il regno. Quello che nasce come odio diventa un sentimento impossibile da ignorare.",
+    dialogo:[
+      "Lei: «Non mi fiderò mai di te.»",
+      "Lui: «Allora guardami negli occhi e dimmi che non provi niente.»",
+      "Lei: «Non rendere tutto più difficile.»"
+    ]
   },
   {
-    title: "Il mondo nascosto",
-    text: "In una biblioteca abbandonata, Alice trova un libro che descrive eventi prima che accadano.<br><br><b>Episodio 1 — La pagina</b><br>Lei: «Questo libro parla di me.»<br>Lui: «Allora non leggerne l'ultima pagina.»<br><br>Le parole iniziano a cambiare da sole."
+    titolo:"Il mondo nascosto",
+    trama:"Dietro una vecchia biblioteca, Mia trova un passaggio verso una città che non compare su nessuna mappa. Qualcuno la sta aspettando da anni.",
+    dialogo:[
+      "Mia: «Chi sei? Come conosci il mio nome?»",
+      "Lo sconosciuto: «Perché la tua famiglia ha custodito questo segreto per generazioni.»",
+      "Mia: «Quale segreto?»"
+    ]
   },
   {
-    title: "La verità segreta",
-    text: "Un vecchio diario conduce Nina a una casa chiusa da vent'anni. Ogni indizio la avvicina a una verità che la sua famiglia ha nascosto.<br><br><b>Episodio 1 — La chiave</b><br>Lei: «Chi ha scritto queste pagine?»<br>Lui: «Qualcuno che non voleva essere trovato.»<br><br>Dietro la porta si sente un rumore."
+    titolo:"La verità segreta",
+    trama:"Una lettera anonima porta Anna a indagare sul passato della sua famiglia. Ogni risposta apre una domanda ancora più inquietante.",
+    dialogo:[
+      "Anna: «Questa lettera parla di mia madre.»",
+      "Davide: «Allora qualcuno non vuole che tu scopra la verità.»",
+      "Anna: «È proprio per questo che continuerò.»"
+    ]
   }
 ];
 
-const plots = {
-  romantico: [
-    ["Un amore impossibile", "Due rivali scoprono di condividere un segreto che li unisce da anni."],
-    ["La lettera mai spedita", "Una lettera perduta riporta nella stessa città due persone che si erano promesse di dimenticarsi."],
-    ["Il ballo di mezzanotte", "Una ragazza incontra uno sconosciuto a un ballo, ma lui scompare prima dell'alba."]
-  ],
-  fantasy: [
-    ["La custode della luna", "Una giovane scopre di poter parlare con le stelle, ma ogni desiderio ha un prezzo."],
-    ["Il regno invisibile", "Un ragazzo trova una porta verso un regno che esiste soltanto dopo il tramonto."],
-    ["Il patto antico", "Due eredi nemici devono collaborare per spezzare una maledizione."]
-  ],
-  mistero: [
-    ["Il diario scomparso", "Un diario riappare dopo vent'anni e contiene un indizio su una scomparsa."],
-    ["La casa senza specchi", "Una famiglia eredita una casa in cui ogni stanza nasconde un segreto."],
-    ["Il messaggio di mezzanotte", "Ogni notte arriva lo stesso messaggio, firmato da qualcuno che non esiste."]
-  ]
-};
+const titoliNuovi = [
+  "Il bacio proibito","La promessa della luna","Il principe sconosciuto",
+  "Un amore impossibile","La ragazza delle stelle","Il segreto del castello",
+  "Quando tornerai","Il cuore della notte","La scelta del destino"
+];
+const luoghi = [
+  "in un castello avvolto dalla nebbia",
+  "durante una notte di luna piena",
+  "in una città dove nessuno dice la verità",
+  "davanti a una lettera rimasta nascosta per anni",
+  "in un regno dove l'amore è proibito",
+  "durante una festa che cambierà ogni cosa"
+];
+const segreti = [
+  "scopre che la persona amata le ha nascosto la propria identità",
+  "riceve un messaggio da qualcuno che credeva perduto",
+  "scopre una promessa fatta prima ancora di nascere",
+  "si trova davanti a una scelta che potrebbe cambiare il futuro",
+  "scopre che il suo più grande nemico è anche il suo unico alleato"
+];
+const nomi = ["Luna","Sofia","Mia","Elena","Aurora","Nina","Alex","Luca","Dante","Noah"];
+const scegli = lista => lista[Math.floor(Math.random()*lista.length)];
 
-document.querySelectorAll("[data-filter]").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll("[data-filter]").forEach(b => b.classList.remove("active"));
-    button.classList.add("active");
-    const filter = button.dataset.filter;
+function mostra(titolo,trama,dialogo,episodio="Episodio 1") {
+  const area = document.getElementById("drama");
+  area.innerHTML = "";
+  const h = document.createElement("h3");
+  h.textContent = "🌙 " + titolo;
+  area.appendChild(h);
+  const e = document.createElement("h4");
+  e.textContent = episodio + ": Il primo incontro";
+  area.appendChild(e);
+  const p = document.createElement("p");
+  p.textContent = trama;
+  area.appendChild(p);
+  dialogo.forEach(riga => {
+    const d = document.createElement("p");
+    d.textContent = riga;
+    area.appendChild(d);
+  });
+  const fine = document.createElement("p");
+  fine.textContent = "Continua... 💜";
+  area.appendChild(fine);
+  area.scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+function creaDrama() {
+  const nome1 = scegli(nomi);
+  let nome2 = scegli(nomi);
+  while(nome2 === nome1) nome2 = scegli(nomi);
+  const titolo = scegli(titoliNuovi);
+  const trama = nome1 + " incontra " + nome2 + " " + scegli(luoghi) +
+    ". Insieme, " + scegli(segreti) +
+    ". Ma il loro legame nasconde un mistero che nessuno è pronto ad affrontare.";
+  const dialogo = [
+    nome1 + ": «Perché ho la sensazione di conoscerti da sempre?»",
+    nome2 + ": «Perché c'è qualcosa del nostro passato che ancora non conosci.»",
+    nome1 + ": «Allora non andare via. Voglio sapere la verità.»"
+  ];
+  mostra(titolo,trama,dialogo);
+}
+
+function mostraStoria(indice) {
+  const s = storie[indice];
+  mostra(s.titolo,s.trama,s.dialogo);
+}
+
+function episodioOggi() {
+  const chiave = "lunaDrama-" + new Date().toISOString().slice(0,10);
+  let salvato = localStorage.getItem(chiave);
+  if (!salvato) {
+    const nome1 = scegli(nomi);
+    let nome2 = scegli(nomi);
+    while(nome2 === nome1) nome2 = scegli(nomi);
+    salvato = JSON.stringify({
+      titolo:scegli(titoliNuovi),
+      trama:nome1 + " incontra " + nome2 + " " + scegli(luoghi) +
+        ". " + nome1 + " " + scegli(segreti) +
+        ". Il giorno seguente, un nuovo indizio cambia ogni cosa.",
+      dialogo:[
+        nome1 + ": «Non posso credere a quello che sta succedendo.»",
+        nome2 + ": «Non hai ancora visto tutta la verità.»",
+        nome1 + ": «Allora domani continueremo questa ricerca.»"
+      ]
+    });
+    localStorage.setItem(chiave,salvato);
+  }
+  const s = JSON.parse(salvato);
+  mostra(s.titolo,s.trama,s.dialogo,"Episodio del giorno");
+  document.getElementById("today").textContent =
+    "Episodio creato per oggi: " + new Date().toLocaleDateString("it-IT");
+}
+
+document.querySelectorAll(".filters button").forEach(b => {
+  b.addEventListener("click",() => {
+    document.querySelectorAll(".filters button").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
     document.querySelectorAll(".card").forEach(card => {
       card.classList.toggle("hidden",
-        filter !== "tutti" && card.dataset.category !== filter);
+        b.dataset.filter !== "tutti" &&
+        card.dataset.category !== b.dataset.filter);
     });
   });
-});
-
-document.querySelectorAll("[data-story]").forEach(button => {
-  button.addEventListener("click", () => {
-    const story = stories[Number(button.dataset.story)];
-    document.getElementById("modalTitle").textContent = story.title;
-    document.getElementById("modalText").innerHTML = story.text;
-    document.getElementById("storyModal").style.display = "block";
-  });
-});
-
-document.getElementById("closeModal").addEventListener("click", () => {
-  document.getElementById("storyModal").style.display = "none";
-});
-document.getElementById("storyModal").addEventListener("click", event => {
-  if (event.target.id === "storyModal") event.currentTarget.style.display = "none";
-});
-
-document.getElementById("createBtn").addEventListener("click", () => {
-  const genre = document.getElementById("genre").value;
-  const options = plots[genre];
-  const chosen = options[Math.floor(Math.random() * options.length)];
-  const names = ["Sofia", "Elena", "Mira", "Alice", "Nina", "Giulia"];
-  const name = names[Math.floor(Math.random() * names.length)];
-  const result = document.getElementById("result");
-
-  result.innerHTML = "<h3>🌙 " + chosen[0] + "</h3>" +
-    "<p>" + chosen[1] + "</p>" +
-    "<h3>Episodio 1 — Il primo indizio</h3>" +
-    "<p>" + name + " non immaginava che quella giornata avrebbe cambiato tutto.</p>" +
-    "<p><b>" + name + ":</b> «Perché proprio io?»</p>" +
-    "<p><b>Una voce misteriosa:</b> «Perché la verità ti riguarda più di quanto immagini.»</p>" +
-    "<p>Una porta si apre lentamente. Dall'altra parte qualcuno pronuncia il suo nome...</p>" +
-    "<p><i>Continua nel prossimo episodio. 💜</i></p>";
 });
 </script>
 </body>
