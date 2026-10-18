@@ -1,144 +1,259 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Luna-Drama | Il tuo universo di storie</title>
-<style>
-*{box-sizing:border-box}
-:root{--bg:#0b0712;--panel:#191025;--purple:#a855f7;--muted:#c4b5d4}
-body{margin:0;background:var(--bg);color:white;font-family:Arial,sans-serif}
-header{height:72px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:#120b1d;border-bottom:1px solid #30203d;position:sticky;top:0;z-index:5}
-.logo{font-size:25px;font-weight:bold;color:#d8b4fe}
-nav a{color:white;text-decoration:none;margin-left:22px;font-size:14px}
-.hero{padding:75px 7%;min-height:390px;background:linear-gradient(90deg,#160c25 5%,#35104e 60%,#170c27);position:relative;overflow:hidden}
-.hero:after{content:"☾";position:absolute;right:8%;top:-80px;font-size:350px;color:#ffffff0c}
-.tag{color:#e9d5ff;letter-spacing:3px;font-size:12px;font-weight:bold}
-h1{font-size:clamp(40px,6vw,68px);line-height:1.04;max-width:650px;margin:18px 0}
-.hero p{color:#e3d7ed;line-height:1.7;max-width:500px}
-.btn{background:var(--purple);color:white;border:0;border-radius:9px;padding:13px 19px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
-.btn.secondary{background:#ffffff18;border:1px solid #ffffff40;margin-left:8px}
-main{padding:32px 6% 60px}
-.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-h2{font-size:25px}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0 24px}
-.filter{background:#21152e;border:1px solid #463053;color:#e9d5ff;padding:9px 13px;border-radius:20px;cursor:pointer}
-.filter.active{background:#9333ea;color:white}
-.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:19px}
-.card{background:var(--panel);border:1px solid #32223f;border-radius:13px;overflow:hidden;transition:transform .2s}
-.card:hover{transform:translateY(-4px)}
-.poster{height:250px;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;background-size:cover;background-position:center;position:relative}
-.poster:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#100817 0%,#10081710 80%)}
-.poster>*{position:relative}
-.poster .small{font-size:11px;letter-spacing:2px;color:#e9d5ff}
-.poster h3{font-size:25px;line-height:1.1;margin:8px 0}
-.p1{background-image:linear-gradient(145deg,#6335a2,#db719a 45%,#191027)}
-.p2{background-image:linear-gradient(rgba(10,8,23,.15),rgba(10,8,23,.55)),url('luna-copertina.jpeg');background-size:cover;background-position:center}
-.p3{background-image:linear-gradient(145deg,#253c86,#7748a8 50%,#101322)}
-.p4{background-image:linear-gradient(145deg,#b77b37,#69335d 50%,#170d20)}
-.p5{background-image:linear-gradient(145deg,#226b70,#29224f 55%,#0c1020)}
-.p6{background-image:linear-gradient(145deg,#a83f45,#42204e 50%,#120d22)}
-.info{padding:15px}
-.info p{color:var(--muted);font-size:14px;line-height:1.5;min-height:42px}
-.info .btn{width:100%}
-.label{font-size:11px;color:#d8b4fe}
-footer{text-align:center;padding:28px;color:#a99bb9;border-top:1px solid #30203d}
-dialog{background:#1a1025;color:white;border:1px solid #67418a;border-radius:15px;padding:25px;width:min(90%,480px)}
-dialog::backdrop{background:#000b}
-dialog p{color:#d7c7e4;line-height:1.6}
-@media(max-width:800px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.poster{height:220px}nav a{margin-left:10px}}
-@media(max-width:480px){header{padding:0 4%}.logo{font-size:20px}nav a{font-size:12px;margin-left:8px}.hero{padding:55px 6%}.cards{gap:10px}.poster{height:190px;padding:12px}.poster h3{font-size:20px}.info{padding:10px}.info p{font-size:12px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luna-Drama | Serie da amare</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #100b19;
+      color: #fff;
+    }
+
+    header {
+      text-align: center;
+      padding: 45px 20px 30px;
+      background: linear-gradient(135deg, #35134f, #8d367d, #24123b);
+    }
+
+    header h1 {
+      font-size: clamp(38px, 8vw, 64px);
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+    }
+
+    header h1 span {
+      color: #ffb5e8;
+    }
+
+    header p {
+      color: #f4d9ef;
+      font-size: 17px;
+    }
+
+    .intro {
+      text-align: center;
+      padding: 30px 15px 15px;
+    }
+
+    .intro h2 {
+      color: #ffb5e8;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    .intro p {
+      color: #d8c9e2;
+      line-height: 1.6;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 25px 15px;
+    }
+
+    .filters button {
+      border: 1px solid #bb70b4;
+      background: transparent;
+      color: white;
+      padding: 11px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .filters button:hover,
+    .filters button.active {
+      background: #a3449b;
+      border-color: #ffb5e8;
+    }
+
+    .series {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      padding: 20px;
+      margin: 0 auto 45px;
+    }
+
+    .card {
+      background: #21172e;
+      border: 1px solid #493052;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #e99bdf;
+    }
+
+    .card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      background: #382443;
+    }
+
+    .card-content {
+      padding: 18px;
+    }
+
+    .category {
+      display: inline-block;
+      color: #ffb5e8;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 9px;
+    }
+
+    .card h3 {
+      font-size: 21px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #d5c9dc;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 15px;
+      color: #cbb9d4;
+      border-top: 1px solid #382443;
+      font-size: 13px;
+    }
+  </style>
 </head>
+
 <body>
-<header>
-  <div class="logo">☾ Luna-Drama</div>
-  <nav><a href="#serie">Serie</a><a href="#info">Info</a></nav>
-</header>
 
-<section class="hero">
-  <div class="tag">IL TUO UNIVERSO DI AI DRAMA</div>
-  <h1>Storie che fanno<br>battere il cuore.</h1>
-  <p>Amore, misteri, passioni proibite e segreti inconfessabili. Scopri mondi in cui ogni episodio nasconde una sorpresa.</p>
-  <a class="btn" href="#serie">✦ Esplora le serie</a>
-  <a class="btn secondary" href="#info">Scopri Luna-Drama</a>
-</section>
+  <header>
+    <h1>LUNA<span>-DRAMA</span></h1>
+    <p>Le storie che fanno battere il cuore ✨</p>
+  </header>
 
-<main id="serie">
-  <div class="sectionhead">
-    <h2>🌙 Le storie da scoprire</h2>
-    <span class="label">NUOVI MONDI TI ASPETTANO</span>
-  </div>
-  <div class="filters">
-    <button class="filter active" onclick="filtra('Tutte',this)">Tutte</button>
-    <button class="filter" onclick="filtra('Romantico',this)">Romantico</button>
-    <button class="filter" onclick="filtra('Fantasy',this)">Fantasy</button>
-    <button class="filter" onclick="filtra('Mistero',this)">Mistero</button>
-  </div>
+  <section class="intro">
+    <h2>Benvenuti nel mondo dei drama</h2>
+    <p>
+      Amore, segreti, emozioni e colpi di scena.
+      <br>
+      Scopri le storie che ti faranno sognare.
+    </p>
+  </section>
 
-  <div class="cards">
-    <article class="card" data-genere="Fantasy">
-      <div class="poster p1">
-  <img src="luna-coperina.jpeg" alt="La Luna e il Lupo" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
-</div>
-      <div class="info"><span class="label">Un destino proibito</span><p>Una ragazza scopre un legame misterioso con il mondo dei lupi.</p><button class="btn" onclick="apri('F','Un amore proibito, un antico segreto e un destino che nessuno può cambiare.')">Scopri la storia</button></div>
+  <nav class="filters">
+    <button class="active" data-filter="tutti">Tutte</button>
+    <button data-filter="romantico">Romantico</button>
+    <button data-filter="fantasy">Fantasy</button>
+    <button data-filter="mistero">Mistero</button>
+  </nav>
+
+  <main class="series">
+
+    <article class="card" data-category="romantico">
+      <img src="luna-coperina.jpeg" alt="Copertina della serie 1">
+      <div class="card-content">
+        <span class="category">Romantico</span>
+        <h3>Il segreto del cuore</h3>
+        <p>Un incontro inaspettato, sentimenti profondi e un amore capace di cambiare tutto.</p>
+      </div>
     </article>
-    <article class="card" data-genere="Romantico">
-      <div class="poster p2">
- <img src="luna2.png" alt="Il Segreto del Cuore" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
-  </div>
-      <div class="info"><span class="label">Un amore inatteso</span><p>Una lettera dimenticata cambia per sempre due vite.</p><button class="btn" onclick="apri('Il Segreto del Cuore','Una lettera nascosta riporta a galla una verità che può unire o distruggere una famiglia.')">Scopri la storia</button></div>
-    </article>
-    <article class="card" data-genere="Mistero">
-     <div class="poster p3">
-  <img src="luna3.png" alt="L'Erede Oscuro" style="width:100%;height:100%;object-fit:cover;">
-  <span class="small">MISTERO · THRILLER</span>
-  <h3>L'Erede<br>Oscuro</h3>
-</div>
-      <div class="info"><span class="label">Il prezzo del potere</span><p>Un'eredità misteriosa apre le porte a una doppia vita.</p><button class="btn" onclick="apri('L’Erede Oscuro','Un’eredità inattesa, alleanze fragili e segreti nascosti dietro una grande fortuna.')">Scopri la storia</button></div>
-    </article>
-    <div class="poster p4"><span class="small">ROMANTICO · PASSIONE</span><h3>Amore<br>Milionario</h3></div>
-      <div class="poster p4"><span class="small">ROMANTICO · PASSIONE</span><h3>Amore<br>Milionario</h3></div>
-      <div class="info"><span class="label">Due mondi diversi</span><p>Una scelta impossibile mette alla prova il vero amore.</p><button class="btn" onclick="apri('Amore Milionario','Una ragazza indipendente incontra un uomo ricco che nasconde una ferita profonda.')">Scopri la storia</button></div>
-    </article>
-    <article class="card" data-genere="Mistero">
-      <div class="poster p5"><span class="small">MISTERO · SEGRETI</span><h3>Ombre<br>del Passato</h3></div>
-      <div class="info"><span class="label">Niente è come sembra</span><p>Il ritorno a casa riapre un caso mai risolto.</p><button class="btn" onclick="apri('Ombre del Passato','Un ritorno inatteso, indizi dimenticati e una verità che attende da anni.')">Scopri la storia</button></div>
-    </article>
-    <article class="card" data-genere="Fantasy">
-      <div class="poster p6"><span class="small">FANTASY · AVVENTURA</span><h3>Il Regno<br>delle Stelle</h3></div>
-      <div class="info"><span class="label">Un mondo da salvare</span><p>Una giovane eroina deve scegliere tra amore e destino.</p><button class="btn" onclick="apri('Il Regno delle Stelle','Un regno in pericolo, poteri nascosti e una missione che cambierà tutto.')">Scopri la storia</button></div>
-    </article>
-  </div>
-</main>
 
-<section id="info" style="padding:25px 6% 55px;background:#140c1e">
-  <h2>✨ Benvenuto su Luna-Drama</h2>
-  <p style="color:#c4b5d4;line-height:1.8;max-width:650px">Questo è il tuo spazio dedicato alle storie originali. Le schede presenti sono concept narrativi: gli episodi video potranno essere aggiunti in seguito.</p>
-</section>
+    <article class="card" data-category="fantasy">
+      <img src="luna%202.jpeg" alt="Copertina della serie 2">
+      <div class="card-content">
+        <span class="category">Fantasy</span>
+        <h3>Un destino speciale</h3>
+        <p>Un mondo misterioso, un destino da scoprire e segreti che aspettano di essere svelati.</p>
+      </div>
+    </article>
 
-<footer>© 2026 Luna-Drama · Il tuo universo di storie 💜</footer>
+    <article class="card" data-category="mistero">
+      <img src="luna2.jpeg" alt="Copertina della serie 3">
+      <div class="card-content">
+        <span class="category">Mistero</span>
+        <h3>Ombre del passato</h3>
+        <p>Un passato dimenticato ritorna e nulla è più come sembra.</p>
+      </div>
+    </article>
 
-<dialog id="finestra">
-  <h2 id="titolo"></h2>
-  <p id="descrizione"></p>
-  <p>Gli episodi di questa storia saranno disponibili prossimamente.</p>
-  <button class="btn" onclick="document.getElementById('finestra').close()">Chiudi</button>
-</dialog>
+    <article class="card" data-category="romantico">
+      <img src="luna3.jpeg" alt="Copertina della serie 4">
+      <div class="card-content">
+        <span class="category">Romantico</span>
+        <h3>Tra amore e destino</h3>
+        <p>Due cuori, mille ostacoli e una scelta che può cambiare il futuro.</p>
+      </div>
+    </article>
 
-<script>
-function apri(titolo,descrizione){
- document.getElementById('titolo').textContent=titolo;
- document.getElementById('descrizione').textContent=descrizione;
- document.getElementById('finestra').showModal();
-}
-function filtra(genere,pulsante){
- document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
- pulsante.classList.add('active');
- document.querySelectorAll('.card').forEach(c=>{
- c.style.display=(genere==='Tutte'||c.dataset.genere===genere)?'':'none';
- });
-}
-</script>
+    <article class="card" data-category="fantasy">
+      <img src="luna4.jpeg" alt="Copertina della serie 5">
+      <div class="card-content">
+        <span class="category">Fantasy</span>
+        <h3>Il mondo nascosto</h3>
+        <p>Un'avventura straordinaria tra misteri, magia e nuove possibilità.</p>
+      </div>
+    </article>
+
+    <article class="card" data-category="mistero">
+      <img src="luna5.jpeg" alt="Copertina della serie 6">
+      <div class="card-content">
+        <span class="category">Mistero</span>
+        <h3>La verità segreta</h3>
+        <p>Ogni indizio porta a una nuova domanda. Riuscirai a scoprire la verità?</p>
+      </div>
+    </article>
+
+  </main>
+
+  <footer>
+    © 2026 Luna-Drama · Tutte le emozioni in un solo posto 💜
+  </footer>
+
+  <script>
+    const buttons = document.querySelectorAll(".filters button");
+    const cards = document.querySelectorAll(".card");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+
+        buttons.forEach(item => item.classList.remove("active"));
+        button.classList.add("active");
+
+        cards.forEach(card => {
+          const matches =
+            filter === "tutti" ||
+            card.dataset.category === filter;
+
+          card.classList.toggle("hidden", !matches);
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
