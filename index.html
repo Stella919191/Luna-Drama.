@@ -176,7 +176,12 @@
       Scopri le storie che ti faranno sognare.
     </p>
   </section>
-
+<section class="ai-creator">
+  <h2>🌙 Crea il tuo Drama AI</h2>
+  <p>Inventa una nuova storia romantica, fantasy o misteriosa.</p>
+  <button onclick="creaDrama()">✨ Crea un nuovo drama</button>
+  <div id="drama-generato"></div>
+</section>
   <nav class="filters">
     <button class="active" data-filter="tutti">Tutte</button>
     <button data-filter="romantico">Romantico</button>
@@ -266,6 +271,34 @@
         });
       });
     });
+    function creaDrama() {
+  const titoli = [
+    "Amanti sotto la luna piena",
+    "Il segreto del cuore",
+    "Un destino speciale",
+    "La promessa proibita",
+    "Il mistero del castello"
+  ];
+
+  const trame = [
+    "Una ragazza scopre che il ragazzo che ama nasconde un segreto soprannaturale.",
+    "Un incontro inaspettato cambia per sempre il destino di due cuori.",
+    "Una lettera misteriosa rivela una verità nascosta da anni.",
+    "Due nemici si innamorano mentre un segreto minaccia di separarli.",
+    "Sotto la luna piena, una promessa antica torna a cambiare tutto."
+  ];
+
+  const i = Math.floor(Math.random() * titoli.length);
+  const risultato = document.getElementById("drama-generato");
+
+  risultato.innerHTML =
+    "<h3>🌙 " + titoli[i] + "</h3>" +
+    "<p>" + trame[i] + "</p>" +
+    "<h4>Episodio 1: Il primo incontro</h4>" +
+    "<p>Lei: «Perché mi guardi così?»</p>" +
+    "<p>Lui: «Perché ho aspettato questo momento per tutta la vita.»</p>" +
+    "<p>Continua... 💜</p>";
+}
   </script>
 
 </body>
